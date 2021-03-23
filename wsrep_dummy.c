@@ -344,6 +344,22 @@ static void dummy_stats_reset (wsrep_t* w)
     WSREP_DBUG_ENTER(w);
 }
 
+static wsrep_status_t dummy_fetch_pfs_info (
+    wsrep_t* w, wsrep_node_info_t* nodes __attribute__((unused)),
+    uint32_t* size __attribute__((unused)))
+{
+    WSREP_DBUG_ENTER(w);
+    *size = 0;
+    return WSREP_OK;
+}
+
+static wsrep_status_t dummy_fetch_pfs_stat (
+    wsrep_t* w, wsrep_node_stat_t* node __attribute__((unused)))
+{
+    WSREP_DBUG_ENTER(w);
+    return WSREP_OK;
+}
+
 static wsrep_seqno_t dummy_pause (wsrep_t* w)
 {
     WSREP_DBUG_ENTER(w);
@@ -428,6 +444,8 @@ static wsrep_t dummy_iface = {
     &dummy_stats_get,
     &dummy_stats_free,
     &dummy_stats_reset,
+    &dummy_fetch_pfs_info,
+    &dummy_fetch_pfs_stat,
     &dummy_pause,
     &dummy_resume,
     &dummy_desync,
